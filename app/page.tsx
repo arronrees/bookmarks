@@ -1,6 +1,14 @@
 import { Plus } from 'lucide-react';
+import { getUser } from './lib/dal';
+import { redirect } from 'next/navigation';
 
-export default function Home() {
+export default async function Home() {
+  const user = await getUser();
+
+  if (!user) {
+    return redirect('/login');
+  }
+
   return (
     <div>
       <div>
