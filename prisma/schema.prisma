@@ -20,8 +20,22 @@ model User {
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
 
-  email    String @unique
+  email    String     @unique
   password String
+  Bookmark Bookmark[]
 
   @@map("users")
+}
+
+model Bookmark {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  url    String
+  title  String?
+  userId Int     @map("user_id")
+  user   User    @relation(fields: [userId], references: [id])
+
+  @@map("bookmarks")
 }

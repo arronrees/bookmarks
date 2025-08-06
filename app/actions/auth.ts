@@ -19,8 +19,6 @@ type FormState =
   | undefined;
 
 export async function signup(prevState: FormState, formData: FormData) {
-  console.log('formData', formData);
-
   const {
     success,
     error,

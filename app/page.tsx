@@ -1,6 +1,8 @@
-import { Plus } from 'lucide-react';
 import { getUser } from './lib/dal';
 import { redirect } from 'next/navigation';
+import CreateBookmarkForm from './components/bookmarks/create-bookmark-form';
+import { getBookmarks } from './lib/bookmarks';
+import BookmarkListItem from './components/bookmarks/bookmark-list-item';
 
 export default async function Home() {
   const user = await getUser();
@@ -9,25 +11,12 @@ export default async function Home() {
     return redirect('/login');
   }
 
+  const bookmarks = await getBookmarks(user.id);
+
   return (
     <div>
       <div>
-        <form>
-          <div className=''>
-            <div className='relative'>
-              <span className='flex items-center justify-center absolute top-1/2 left-3 -translate-y-1/2 pointer-events-none'>
-                <Plus className='text-stone-600 size-4' />
-              </span>
-              <input
-                type='text'
-                name='bookmark'
-                id='bookmark'
-                placeholder='Insert a link'
-                className='rounded border border-stone-300 p-2 px-9 w-full placeholder:text-stone-400 dark:placeholder:text-stone-500 leading-[1] text-sm placeholder:text-sm text-stone-700 dark:text-stone-300 dark:border-stone-700'
-              />
-            </div>
-          </div>
-        </form>
+        <CreateBookmarkForm />
         <div className='mt-4'>
           <div className='flex'>
             <ul className='flex items-center flex-wrap gap-2'>
@@ -70,6 +59,11 @@ export default async function Home() {
           <div className='border-b border-stone-100 dark:border-stone-800 flex items-end justify-between text-xs px-2 pb-2 text-stone-500'>
             <p>Title</p>
             <p>Created at</p>
+          </div>
+          <div className='mt-2 flex flex-col gap-2'>
+            {bookmarks.map((bookmark) => (
+              <BookmarkListItem key={bookmark.id} bookmark={bookmark} />
+            ))}
           </div>
         </div>
       </div>
