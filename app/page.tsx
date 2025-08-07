@@ -21,7 +21,7 @@ export default async function Home() {
         <CreateBookmarkForm />
         <div className='mt-4'>
           <div className='flex'>
-            <ul className='flex items-center flex-wrap gap-2'>
+            {/* <ul className='flex items-center flex-wrap gap-2'>
               <li>
                 <a
                   href=''
@@ -54,7 +54,7 @@ export default async function Home() {
                   Personal
                 </a>
               </li>
-            </ul>
+            </ul> */}
           </div>
         </div>
         <div className='mt-4'>
