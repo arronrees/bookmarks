@@ -1,8 +1,9 @@
-import { getUser } from './lib/dal';
+import { getUser } from '@/lib/dal';
 import { redirect } from 'next/navigation';
 import CreateBookmarkForm from './components/bookmarks/create-bookmark-form';
-import { getBookmarks } from './lib/bookmarks';
+import { getBookmarks } from '@/lib/bookmarks';
 import BookmarkListItem from './components/bookmarks/bookmark-list-item';
+import Header from './components/layout/header';
 
 export default async function Home() {
   const user = await getUser();
@@ -15,6 +16,7 @@ export default async function Home() {
 
   return (
     <div>
+      <Header />
       <div>
         <CreateBookmarkForm />
         <div className='mt-4'>

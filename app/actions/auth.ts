@@ -1,9 +1,9 @@
 'use server';
 
-import { SignupFormSchema } from '../validation/auth';
-import { formatZodError } from '../lib/validation';
-import { comparePassword, createUser, findUserByEmail } from '../lib/auth';
-import { createSession, deleteSession } from '../lib/session';
+import { SignupFormSchema } from '../../validation/auth';
+import { formatZodError } from '@/lib/validation';
+import { comparePassword, createUser, findUserByEmail } from '@/lib/auth';
+import { createSession, deleteSession } from '@/lib/session';
 import { redirect } from 'next/navigation';
 
 type FormErrors = {

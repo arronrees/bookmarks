@@ -2,13 +2,13 @@ import React from 'react';
 import Logo from './logo';
 import { ChevronsUpDown } from 'lucide-react';
 import Link from 'next/link';
-import { getUser } from '@/app/lib/dal';
+import { getUser } from '@/lib/dal';
 
 export default async function Header() {
   const user = await getUser();
 
   return (
-    <header className='flex items-center justify-between p-4 md:px-8 md:py-6'>
+    <header className='flex items-center justify-between py-4 md:py-6'>
       <Link href='/' className='flex items-center justify-center !ring-0'>
         <Logo />
       </Link>

@@ -1,10 +1,10 @@
 'use server';
 
 import { redirect } from 'next/navigation';
-import { getUser } from '../lib/dal';
-import { formatZodError } from '../lib/validation';
-import { CreateBookmarkSchema } from '../validation/bookmarks';
-import { db } from '../db/db';
+import { getUser } from '@/lib/dal';
+import { formatZodError } from '@/lib/validation';
+import { CreateBookmarkSchema } from '@/validation/bookmarks';
+import { db } from '@/db/db';
 
 type FormErrors = {
   bookmark?: string[];

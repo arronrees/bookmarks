@@ -1,6 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
-import { Bookmark } from '@/app/generated/prisma';
-import { formatDate } from '@/app/lib/utils';
+import { Bookmark } from '@/generated/prisma';
+import { formatDate } from '@/lib/utils';
 import React from 'react';
 
 export default function BookmarkListItem({ bookmark }: { bookmark: Bookmark }) {
