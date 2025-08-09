@@ -6,6 +6,7 @@ export const CreateBookmarkSchema = z.object({
     protocol: /^https?$/,
     hostname: z.regexes.domain,
   }),
+  category: z.string().nullable(),
 });
 
 export const CreateCatgorySchema = z.object({

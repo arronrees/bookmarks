@@ -31,7 +31,7 @@ export default async function CategoryPage({ params }: Props) {
     <div>
       <Header />
       <div>
-        <CreateBookmarkForm />
+        <CreateBookmarkForm categorySlug={slug} />
         <div className='mt-4'>
           <div className='flex'>
             {user && (

@@ -3,11 +3,18 @@ import { createBookmark } from '@/app/actions/create-bookmark';
 import { Plus } from 'lucide-react';
 import React, { useActionState } from 'react';
 
-export default function CreateBookmarkForm() {
+interface Props {
+  categorySlug?: string;
+}
+
+export default function CreateBookmarkForm({ categorySlug }: Props) {
   const [state, action] = useActionState(createBookmark, undefined);
 
   return (
     <form action={action}>
+      {categorySlug && (
+        <input type='hidden' name='category' value={categorySlug} />
+      )}
       <div className=''>
         <div className='relative'>
           <span className='flex items-center justify-center absolute top-1/2 left-3 -translate-y-1/2 pointer-events-none'>

@@ -19,6 +19,7 @@ type FormState =
 
 export async function createBookmark(prevState: FormState, formData: FormData) {
   let bookmarkData = formData.get('bookmark')?.toString();
+  let category = formData.get('category');
 
   if (bookmarkData) {
     if (bookmarkData.startsWith('http') || bookmarkData.startsWith('https')) {
@@ -28,12 +29,17 @@ export async function createBookmark(prevState: FormState, formData: FormData) {
     }
   }
 
+  if (category) {
+    category = category.toString();
+  }
+
   const {
     success,
     error,
     data: validated,
   } = CreateBookmarkSchema.safeParse({
     bookmark: bookmarkData,
+    category,
   });
 
   if (!success) {
@@ -62,6 +68,28 @@ export async function createBookmark(prevState: FormState, formData: FormData) {
         bookmark: ['Failed to create bookmark, please try again.'],
       },
     };
+  }
+
+  if (category) {
+    const foundCategory = await db.category.findUnique({
+      where: {
+        userId_slug: {
+          slug: category,
+          userId: user.id,
+        },
+      },
+    });
+
+    if (foundCategory) {
+      await db.bookmarkCategories.create({
+        data: {
+          bookmarkId: bookmark.id,
+          categoryId: foundCategory.id,
+        },
+      });
+
+      return redirect(`/${user.id}/${foundCategory.slug}`);
+    }
   }
 
   return redirect('/');
