@@ -5,6 +5,7 @@ import { getBookmarks, getCategories } from '@/lib/bookmarks';
 import BookmarkListItem from './components/bookmarks/bookmark-list-item';
 import Header from './components/layout/header';
 import Categories from './components/bookmarks/categories';
+import BookmarkTable from './components/bookmarks/bookmark-table';
 
 export default async function Home() {
   const user = await getUser();
@@ -13,7 +14,6 @@ export default async function Home() {
     return redirect('/login');
   }
 
-  const bookmarks = await getBookmarks(user.id);
   const categories = await getCategories(user.id);
 
   return (
@@ -26,17 +26,7 @@ export default async function Home() {
             {user && <Categories categories={categories} userId={user.id} />}
           </div>
         </div>
-        <div className='mt-4'>
-          <div className='border-b border-stone-100 dark:border-stone-800 flex items-end justify-between text-xs px-2 pb-2 text-stone-500'>
-            <p>Title</p>
-            <p>Created at</p>
-          </div>
-          <div className='mt-2 flex flex-col gap-2'>
-            {bookmarks.map((bookmark) => (
-              <BookmarkListItem key={bookmark.id} bookmark={bookmark} />
-            ))}
-          </div>
-        </div>
+        <BookmarkTable userId={user.id} />
       </div>
     </div>
   );

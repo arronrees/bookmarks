@@ -1,5 +1,5 @@
 'use client';
-import { createBookmark } from '@/app/actions/bookmarks';
+import { createBookmark } from '@/app/actions/create-bookmark';
 import { Plus } from 'lucide-react';
 import React, { useActionState } from 'react';
 

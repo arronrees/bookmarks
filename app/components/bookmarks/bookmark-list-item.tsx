@@ -1,11 +1,39 @@
+'use client';
 /* eslint-disable @next/next/no-img-element */
 import { Bookmark } from '@/generated/prisma';
 import { formatDate } from '@/lib/utils';
-import React from 'react';
+import { EllipsisVertical } from 'lucide-react';
+import React, { useEffect, useState } from 'react';
+import DeleteBookmark from './delete-bookmark';
 
 export default function BookmarkListItem({ bookmark }: { bookmark: Bookmark }) {
+  const [isEditOpen, setIsEditOpen] = useState<boolean>(false);
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      window.addEventListener('click', (e) => {
+        if (
+          !(e.target as HTMLElement).classList.contains('edit__bookmark__btn')
+        ) {
+          const filterWrapper = (e.target as HTMLElement).closest(
+            '.filter__wrapper'
+          );
+
+          if (!filterWrapper) {
+            setIsEditOpen(false);
+          }
+        }
+      });
+      window.addEventListener('keyup', (e) => {
+        if (e.key === 'Escape') {
+          setIsEditOpen(false);
+        }
+      });
+    }
+  }, []);
+
   return (
-    <div key={bookmark.id}>
+    <div key={bookmark.id} className='grid grid-cols-[1fr_4rem] gap-2 relative'>
       <a
         target='_blank'
         href={bookmark.url}
@@ -21,6 +49,21 @@ export default function BookmarkListItem({ bookmark }: { bookmark: Bookmark }) {
         </div>
         <p className='text-stone-500'>{formatDate(bookmark.createdAt)}</p>
       </a>
+      <button
+        type='button'
+        className='ml-auto px-2 rounded edit__bookmark__btn'
+        onClick={(e) => {
+          e.preventDefault();
+          setIsEditOpen(!isEditOpen);
+        }}
+      >
+        <EllipsisVertical className='size-3 text-stone-500 pointer-events-none' />
+      </button>
+      {isEditOpen && (
+        <div className='absolute right-0 top-[115%] min-w-28 z-20 rounded bg-stone-100 dark:bg-stone-800 p-1.5 flex flex-col gap-1'>
+          <DeleteBookmark bookmarkId={bookmark.id} />
+        </div>
+      )}
     </div>
   );
 }

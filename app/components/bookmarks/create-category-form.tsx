@@ -1,5 +1,5 @@
 'use client';
-import { createCategory } from '@/app/actions/categories';
+import { createCategory } from '@/app/actions/create-category';
 import React, { useActionState } from 'react';
 
 export default function CreateCategoryForm() {
