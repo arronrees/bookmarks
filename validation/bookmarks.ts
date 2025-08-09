@@ -7,3 +7,7 @@ export const CreateBookmarkSchema = z.object({
     hostname: z.regexes.domain,
   }),
 });
+
+export const CreateCatgorySchema = z.object({
+  category: z.string(),
+});

@@ -20,9 +20,10 @@ model User {
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
 
-  email    String     @unique
-  password String
-  Bookmark Bookmark[]
+  email      String     @unique
+  password   String
+  bookmarks  Bookmark[]
+  categories Category[]
 
   @@map("users")
 }
@@ -32,10 +33,40 @@ model Bookmark {
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
 
-  url    String
-  title  String?
-  userId Int     @map("user_id")
-  user   User    @relation(fields: [userId], references: [id])
+  url        String
+  title      String?
+  userId     Int                  @map("user_id")
+  user       User                 @relation(fields: [userId], references: [id])
+  categories BookmarkCategories[]
 
   @@map("bookmarks")
+}
+
+model Category {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  title     String
+  slug      String
+  bookmarks BookmarkCategories[]
+  user      User                 @relation(fields: [userId], references: [id])
+  userId    Int
+
+  @@unique([userId, slug])
+  @@map("categories")
+}
+
+model BookmarkCategories {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  bookmark   Bookmark @relation(fields: [bookmarkId], references: [id])
+  bookmarkId Int
+  category   Category @relation(fields: [categoryId], references: [id])
+  categoryId Int
+
+  @@unique([bookmarkId, categoryId])
+  @@map("bookmark_categories")
 }
