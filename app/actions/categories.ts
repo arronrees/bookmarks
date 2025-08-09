@@ -39,7 +39,7 @@ export async function createCategory(prevState: FormState, formData: FormData) {
     return redirect('/login');
   }
 
-  const slug = slugify(validated.category);
+  const slug = slugify(validated.category, { lower: true });
 
   const foundCategory = await db.category.findUnique({
     where: {

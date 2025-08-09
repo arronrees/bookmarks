@@ -1,6 +1,6 @@
 'use client';
 import { Category } from '@/generated/prisma';
-import { Minus, Plus, X } from 'lucide-react';
+import { Plus, X } from 'lucide-react';
 import Link from 'next/link';
 import React, { useState } from 'react';
 import CreateCategoryForm from './create-category-form';
@@ -8,9 +8,14 @@ import CreateCategoryForm from './create-category-form';
 interface Props {
   categories: Category[];
   userId: number;
+  currentCategorySlug?: string;
 }
 
-export default function Categories({ categories, userId }: Props) {
+export default function Categories({
+  categories,
+  userId,
+  currentCategorySlug,
+}: Props) {
   const [showForm, setShowForm] = useState(false);
 
   return (
@@ -19,7 +24,11 @@ export default function Categories({ categories, userId }: Props) {
         <li>
           <Link
             href='/'
-            className='flex bg-stone-800 text-white dark:bg-stone-200 dark:text-stone-800 px-2 py-1 rounded-full text-xs'
+            className={`flex transition px-2 py-1 rounded-full text-xs ${
+              !currentCategorySlug
+                ? 'bg-stone-800 text-white dark:bg-stone-200 dark:text-stone-800'
+                : 'bg-stone-100 dark:bg-stone-800 hover:bg-stone-200 focus:bg-stone-200 dark:hover:bg-stone-700 dark:focus:bg-stone-700'
+            }`}
           >
             All
           </Link>
@@ -28,7 +37,11 @@ export default function Categories({ categories, userId }: Props) {
           <li key={category.id}>
             <Link
               href={`/${userId}/${category.slug}`}
-              className='flex bg-stone-100 dark:bg-stone-800 hover:bg-stone-200 focus:bg-stone-200 dark:hover:bg-stone-700 dark:focus:bg-stone-700 transition px-2 py-1 rounded-full text-xs'
+              className={`flex transition px-2 py-1 rounded-full text-xs ${
+                currentCategorySlug === category.slug
+                  ? 'bg-stone-800 text-white dark:bg-stone-200 dark:text-stone-800'
+                  : 'bg-stone-100 dark:bg-stone-800 hover:bg-stone-200 focus:bg-stone-200 dark:hover:bg-stone-700 dark:focus:bg-stone-700'
+              }`}
             >
               {category.title}
             </Link>
