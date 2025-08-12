@@ -37,15 +37,18 @@ export default function BookmarkListItem({ bookmark }: { bookmark: Bookmark }) {
       <a
         target='_blank'
         href={bookmark.url}
-        className='flex items-center justify-between text-xs p-2 rounded transition text-stone-700 hover:bg-stone-50 dark:text-stone-300 dark:hover:bg-stone-900 leading-[1]'
+        className='grid grid-cols-[1fr_10rem] justify-between text-xs p-2 rounded transition text-stone-700 hover:bg-stone-50 dark:text-stone-300 dark:hover:bg-stone-900 leading-[1]'
       >
-        <div className='flex items-center gap-2'>
+        <div className='w-full flex items-center gap-2'>
           <span className='flex items-center justify-center h-[1lh]'>
             <span className='block size-3 rounded-full bg-stone-300 dark:bg-stone-700'>
               <img src={`${bookmark.domain}/favicon.ico`} alt='' />
             </span>
           </span>
-          <p className=''>{bookmark.title}</p>
+          <p className=''>
+            {bookmark.title?.slice(0, 40)}
+            {bookmark.title && bookmark.title.length > 40 ? '...' : ''}
+          </p>
         </div>
         <p className='text-stone-500'>{formatDate(bookmark.createdAt)}</p>
       </a>
