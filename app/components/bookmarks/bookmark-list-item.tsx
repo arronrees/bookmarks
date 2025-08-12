@@ -59,11 +59,14 @@ export default function BookmarkListItem({ bookmark }: { bookmark: Bookmark }) {
       >
         <EllipsisVertical className='size-3 text-stone-500 pointer-events-none' />
       </button>
-      {isEditOpen && (
-        <div className='absolute right-0 top-[115%] min-w-28 z-20 rounded bg-stone-100 dark:bg-stone-800 p-1.5 flex flex-col gap-1'>
-          <DeleteBookmark bookmarkId={bookmark.id} />
-        </div>
-      )}
+
+      <div
+        className={`absolute right-0 top-[115%] min-w-28 z-20 rounded bg-stone-100 dark:bg-stone-800 p-1.5 flex-col gap-1 ${
+          isEditOpen ? 'flex' : 'hidden'
+        }`}
+      >
+        <DeleteBookmark bookmarkId={bookmark.id} />
+      </div>
     </div>
   );
 }

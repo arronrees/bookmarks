@@ -1,9 +1,8 @@
-import BookmarkListItem from '@/app/components/bookmarks/bookmark-list-item';
 import BookmarkTable from '@/app/components/bookmarks/bookmark-table';
 import Categories from '@/app/components/bookmarks/categories';
 import CreateBookmarkForm from '@/app/components/bookmarks/create-bookmark-form';
 import Header from '@/app/components/layout/header';
-import { getBookmarks, getCategories } from '@/lib/bookmarks';
+import { getCategories } from '@/lib/bookmarks';
 import { getUser } from '@/lib/dal';
 import { redirect } from 'next/navigation';
 import React from 'react';

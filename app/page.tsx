@@ -1,8 +1,7 @@
 import { getUser } from '@/lib/dal';
 import { redirect } from 'next/navigation';
 import CreateBookmarkForm from './components/bookmarks/create-bookmark-form';
-import { getBookmarks, getCategories } from '@/lib/bookmarks';
-import BookmarkListItem from './components/bookmarks/bookmark-list-item';
+import { getCategories } from '@/lib/bookmarks';
 import Header from './components/layout/header';
 import Categories from './components/bookmarks/categories';
 import BookmarkTable from './components/bookmarks/bookmark-table';
