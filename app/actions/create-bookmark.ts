@@ -5,6 +5,7 @@ import { getUser } from '@/lib/dal';
 import { formatZodError } from '@/lib/validation';
 import { CreateBookmarkSchema } from '@/validation/bookmarks';
 import { db } from '@/db/db';
+import { extractDomain } from '@/lib/bookmarks';
 
 type FormErrors = {
   bookmark?: string[];
@@ -22,12 +23,14 @@ export async function createBookmark(prevState: FormState, formData: FormData) {
   let category = formData.get('category');
 
   if (bookmarkData) {
-    if (bookmarkData.startsWith('http') || bookmarkData.startsWith('https')) {
-      bookmarkData = bookmarkData.replace('http', 'https');
-    } else {
+    if (bookmarkData.startsWith('http://')) {
+      bookmarkData = bookmarkData.replace('http://', 'https://');
+    } else if (!bookmarkData.startsWith('https://')) {
       bookmarkData = `https://${bookmarkData}`;
     }
   }
+
+  console.log(bookmarkData);
 
   if (category) {
     category = category.toString();
@@ -58,6 +61,7 @@ export async function createBookmark(prevState: FormState, formData: FormData) {
     data: {
       url: validated.bookmark,
       title: validated.bookmark.replace('https://', ''),
+      domain: extractDomain(validated.bookmark),
       userId: user.id,
     },
   });

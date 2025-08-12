@@ -42,7 +42,7 @@ export default function BookmarkListItem({ bookmark }: { bookmark: Bookmark }) {
         <div className='flex items-center gap-2'>
           <span className='flex items-center justify-center h-[1lh]'>
             <span className='block size-3 rounded-full bg-stone-300 dark:bg-stone-700'>
-              <img src={`${bookmark.url}/favicon.ico`} alt='' />
+              <img src={`${bookmark.domain}/favicon.ico`} alt='' />
             </span>
           </span>
           <p className=''>{bookmark.title}</p>

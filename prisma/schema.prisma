@@ -29,6 +29,7 @@ model Bookmark {
 
   url        String
   title      String?
+  domain     String?
   userId     Int                  @map("user_id")
   user       User                 @relation(fields: [userId], references: [id], onDelete: Cascade)
   categories BookmarkCategories[]

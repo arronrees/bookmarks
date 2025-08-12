@@ -37,3 +37,18 @@ export const getCategories = async (userId: number): Promise<Category[]> => {
 
   return categories;
 };
+
+export const extractDomain = (url: string): string | null => {
+  try {
+    if (!url.startsWith('http://') && !url.startsWith('https://')) {
+      url = `https://${url}`;
+    }
+
+    const urlObject = new URL(url);
+    return `https://${urlObject.hostname}`;
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  } catch (error) {
+    // If URL is invalid, return null or handle as needed
+    return null;
+  }
+};
