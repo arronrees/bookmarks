@@ -25,6 +25,7 @@ export default function CreateBookmarkForm({ categorySlug }: Props) {
             name='bookmark'
             id='bookmark'
             placeholder='Insert a link'
+            autoFocus
             className='rounded border border-stone-300 p-2 px-9 w-full placeholder:text-stone-400 dark:placeholder:text-stone-500 leading-[1] text-sm placeholder:text-sm text-stone-700 dark:text-stone-300 dark:border-stone-700'
           />
         </div>

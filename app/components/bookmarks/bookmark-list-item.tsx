@@ -1,7 +1,7 @@
 'use client';
 /* eslint-disable @next/next/no-img-element */
 import { Bookmark } from '@/generated/prisma';
-import { formatDate } from '@/lib/utils';
+import { formatDate, getFavicon } from '@/lib/utils';
 import { EllipsisVertical } from 'lucide-react';
 import React, { useEffect, useState } from 'react';
 import DeleteBookmark from './delete-bookmark';
@@ -42,7 +42,7 @@ export default function BookmarkListItem({ bookmark }: { bookmark: Bookmark }) {
         <div className='w-full flex items-center gap-2'>
           <span className='flex items-center justify-center h-[1lh]'>
             <span className='block size-3 rounded-full bg-stone-300 dark:bg-stone-700'>
-              <img src={`${bookmark.domain}/favicon.ico`} alt='' />
+              <img src={getFavicon(bookmark.domain ?? '')} alt='' />
             </span>
           </span>
           <p className=''>
